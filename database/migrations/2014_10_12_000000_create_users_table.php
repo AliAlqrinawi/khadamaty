@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('count_view')->nullable();
             $table->enum('status', array('0', '1'))->default('1')->comment("Active = 1 , Not Active = 0");
             $table->foreignId('cat_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('province_id')->constrained('provinces')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('regino_id')->constrained('regions')->onUpdate('cascade')->onDelete('cascade');
             $table->string('otp')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
