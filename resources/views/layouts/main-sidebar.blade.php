@@ -53,7 +53,7 @@
                 </li>
  
                 <li class="slide">
-                    <a class="side-menu__item" href="#">
+                    <a class="side-menu__item" href="{{ route('category') }}">
                         <img class="side-menu__icon"
                              src="{{url('https://img.icons8.com/nolan/344/categorize.png')}}"
                              style=" width: 30px; height: 30px;"/>
@@ -70,7 +70,7 @@
                     </a>
                 </li>
  
-                <li class="slide">
+                <!-- <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
                         <img class="side-menu__icon" style=" width: 30px; height: 30px;"
                              src="{{url('https://img.icons8.com/external-icongeek26-outline-colour-icongeek26/64/000000/external-monitor-online-education-icongeek26-outline-colour-icongeek26-1.png')}}"/>
@@ -84,32 +84,14 @@
                         <li><a class="slide-item" style=" font-weight: bold;"
                                href="{{ url('admin/fav/clothes') }}">{{trans('menu.fav')}}</a></li>
                     </ul>
-                </li>
- 
+                </li> -->
+
                 <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/nolan/344/online-shop-sale.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.coupons')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
+                    <a class="side-menu__item" href="{{ route('ads') }}">
                         <img class="side-menu__icon"
                              src="{{url('https://img.icons8.com/external-icongeek26-outline-colour-icongeek26/344/external-ads-ads-icongeek26-outline-colour-icongeek26-7.png')}}"
                              style=" width: 30px; height: 30px;"/>
                         <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.ads')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/nolan/344/customer-insight.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.appusers')}}</span>
                     </a>
                 </li>
  
@@ -121,55 +103,9 @@
                         <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.order')}}</span>
                     </a>
                 </li>
- 
+
                 <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/nolan/344/email.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.contact')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/nolan/344/card-security.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.payment')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/external-itim2101-blue-itim2101/344/external-work-time-time-management-itim2101-blue-itim2101-1.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.times')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/ultraviolet/344/deliver-food.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label"
-                              style=" font-weight: bold;">{{trans('menu.deliveryTypes')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
-                        <img class="side-menu__icon"
-                             src="{{url('https://img.icons8.com/ultraviolet/344/deliver-food.png')}}"
-                             style=" width: 30px; height: 30px;"/>
-                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.delivery')}}</span>
-                    </a>
-                </li>
- 
-                <li class="slide">
-                    <a class="side-menu__item" href="#">
+                    <a class="side-menu__item" href="{{ route('countries') }}">
                         <img class="side-menu__icon"
                              src="{{url('https://img.icons8.com/nolan/344/region-code.png')}}"
                              style=" width: 30px; height: 30px;"/>
@@ -178,7 +114,7 @@
                 </li>
   
                 <li class="slide">
-                    <a class="side-menu__item" href="#">
+                    <a class="side-menu__item" href="{{ route('cities') }}">
                         <img class="side-menu__icon"
                              src="{{url('https://img.icons8.com/nolan/344/region-code.png')}}"
                              style=" width: 30px; height: 30px;"/>
@@ -186,7 +122,7 @@
                     </a>
                 </li>
  
-            <li class="slide">
+            <!-- <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
                     <img class="side-menu__icon" style=" width: 30px; height: 30px;"
                          src="{{url('https://img.icons8.com/nolan/344/message-group.png')}}"/>
@@ -198,7 +134,7 @@
                     <li><a class="slide-item" style=" font-weight: bold;"
                            href="{{ url('admin/appUser/notify') }}">{{trans('menu.Alert')}}</a></li>
                 </ul>
-            </li>
+            </li> -->
  
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
@@ -208,9 +144,9 @@
                         <i class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
                         <li><a class="slide-item" style=" font-weight: bold;"
-                               href="#">{{trans('menu.global')}}</a></li>
+                               href="{{ route('setting.global') }}">{{trans('menu.global')}}</a></li>
                         <li><a class="slide-item" style=" font-weight: bold;"
-                               href="#">{{trans('menu.social')}}</a></li>
+                               href="{{ route('setting.social') }}">{{trans('menu.social')}}</a></li>
                     </ul>
                 </li>
  
