@@ -11,6 +11,7 @@ return [
     'status' => 'Status',
     'domain' => 'الدومين',
     'created_at' => 'Created At',
+    'pacg' => 'Package',
     'updated_at' => 'تاريخ التعديل',
     'is_active' => 'مفعل',
     'selected_users_landry' => 'تم تعديل حالة الطلب بنجاح',

@@ -44,16 +44,31 @@ class User extends Authenticatable
 
     public function OrderCustmers()
     {
-        return $this->hasMany(User::class , 'custmer_id ' , 'id');
+        return $this->hasMany(Orders::class , 'custmer_id ' , 'id');
     }
     
     public function OrderWorkers()
     {
-        return $this->hasMany(User::class , 'worker_id' , 'id');
+        return $this->hasMany(Orders::class , 'worker_id' , 'id');
     }
 
     public function Categories()
     {
         return $this->belongsTo(Categories::class , 'cat_id' , 'id');
+    }
+
+    public function Packages()
+    {
+        return $this->hasMany(PackageOrder::class , 'worker_id' , 'id');
+    }
+
+    public function FavCustmers()
+    {
+        return $this->hasMany(Fav::class , 'custmer_id ' , 'id');
+    }
+    
+    public function FavWorkers()
+    {
+        return $this->hasMany(Fav::class , 'worker_id' , 'id');
     }
 }

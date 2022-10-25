@@ -10,6 +10,7 @@ return [
     'workercat' => 'فئة العامل',
     'status' => 'الحالة',
     'domain' => 'الدومين',
+    'pacg' => 'الباقة',
     'created_at' => 'تاريخ الإنشاء',
     'updated_at' => 'تاريخ التعديل',
     'is_active' => 'مفعل',

@@ -15,6 +15,7 @@ return [
     'appusers'=>'Customers App',
     'wait'=>'قوائم الانتظار ',
     'order'=>'Orders',
+    'Porder'=>'Packages Orders',
     'archive'=>'Archive',
     'contact'=>'Contact',
     'notify'=>'Notify',
@@ -31,5 +32,5 @@ return [
     'cities'=>'City neighborhood ',
     'Alert'=>'Alert Messages',
     'Members_alert' => 'Members alert messages',
-    'fav' => 'Favorite Products'
+    'fav' => 'Favorite Workers'
 ];

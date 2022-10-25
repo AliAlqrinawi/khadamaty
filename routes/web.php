@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\FavsController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\PackageOrdersController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProvincesController;
 use App\Http\Controllers\RegionsController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -170,3 +173,56 @@ Route::group(
     });
 });
 // Route::post('package/update/status', [PackagesController::class , 'updateStatus'])->name('package.status');
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale()."/admin",
+        // 'prefix' => "admin",
+        'middleware' => ['auth']
+] , function (){
+    Route::controller(PackageOrdersController::class)->group(function () {
+        Route::get('PackageOrder', 'PackageOrder')->name('PackageOrder');
+
+        Route::get('PackageOrder/get', 'get_PackageOrder')->name('get_PackageOrder');
+
+        Route::delete('PackageOrder/delete/{id}' , 'delete')->name('PackageOrder.delete');
+    });
+});
+// Route::post('package/update/status', [PackagesController::class , 'updateStatus'])->name('package.status');
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale()."/admin",
+        // 'prefix' => "admin",
+        'middleware' => ['auth']
+] , function (){
+    Route::controller(FavsController::class)->group(function () {
+        Route::get('Fav', 'Fav')->name('Fav');
+
+        Route::get('Fav/get', 'get_Fav')->name('get_Fav');
+
+        Route::delete('Fav/delete/{id}' , 'delete')->name('Fav.delete');
+    });
+});
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale()."/admin",
+        // 'prefix' => "admin",
+        'middleware' => ['auth']
+] , function (){
+    Route::controller(UsersController::class)->group(function () {
+        Route::get('admins', 'admins')->name('admins');
+
+        Route::get('admins/get', 'get_admins')->name('get_admins');
+
+        Route::post('admin/add' , 'add_admin')->name('add_admin');
+
+        Route::get('admin/edit/{id}' , 'edit')->name('admin.edit');
+
+        Route::post('admin/update/{id}' , 'update')->name('admin.update');
+
+        Route::delete('admin/delete/{id}' , 'delete')->name('admin.delete');
+    });
+});
+Route::post('admin/update/status', [UsersController::class , 'updateStatus'])->name('admin.status');

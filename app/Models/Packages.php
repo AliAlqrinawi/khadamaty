@@ -10,4 +10,9 @@ class Packages extends Model
     use HasFactory;
 
     protected $fillable = ['title_en' , 'title_ar' , 'duration' , 'price'];
+
+    public function WorkersPackages()
+    {
+        return $this->hasMany(PackageOrder::class , 'package_id' , 'id');
+    }
 }

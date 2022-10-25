@@ -40,7 +40,7 @@
                         <i class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
                         <li><a class="slide-item" style=" font-weight: bold;"
-                               href="#">{{trans('menu.admins')}}</a></li>
+                               href="{{ route('admins') }}">{{trans('menu.admins')}}</a></li>
                     </ul>
                 </li>
  
@@ -101,6 +101,24 @@
                              src="{{url('https://img.icons8.com/ultraviolet/344/deliver-food.png')}}"
                              style=" width: 30px; height: 30px;"/>
                         <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.order')}}</span>
+                    </a>
+                </li>
+
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('PackageOrder') }}">
+                        <img class="side-menu__icon"
+                             src="{{url('https://img.icons8.com/ultraviolet/344/deliver-food.png')}}"
+                             style=" width: 30px; height: 30px;"/>
+                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.Porder')}}</span>
+                    </a>
+                </li>
+
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('Fav') }}">
+                        <img class="side-menu__icon"
+                             src="{{url('https://img.icons8.com/external-icongeek26-outline-colour-icongeek26/344/external-ads-ads-icongeek26-outline-colour-icongeek26-7.png')}}"
+                             style=" width: 30px; height: 30px;"/>
+                        <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.fav')}}</span>
                     </a>
                 </li>
 

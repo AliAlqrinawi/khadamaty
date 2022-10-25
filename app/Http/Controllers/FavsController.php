@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PackageOrder;
+use App\Models\Fav;
 use Illuminate\Http\Request;
 
-class PackageOrdersController extends Controller
+class FavsController extends Controller
 {
-    public function PackageOrder(){
-        return view('Dashbord.PackageOrder.index');
+    public function Fav(){
+        return view('Dashbord.Fav.index');
     }
 
-    public function get_PackageOrder(){
-        $PackageOrder = PackageOrder::with('Workers.Categories' , 'Packages')->get();
-        if ($PackageOrder) {
+    public function get_Fav(){
+        $Fav = Fav::orderBy('id' , 'desc')->with('Workers.Categories')->get();
+        if ($Fav) {
             return response()->json([
                 'message' => 'Data Found',
                 'status' => 200,
-                'data' => $PackageOrder
+                'data' => $Fav
             ]);
         } else {
             return response()->json([
@@ -28,11 +28,11 @@ class PackageOrdersController extends Controller
     }
 
     public function delete ($id){
-        $PackageOrder = PackageOrder::find($id);
-        if ($PackageOrder) {
-            $PackageOrder->delete();
+        $fav = Fav::find($id);
+        if ($fav) {
+            $fav->delete();
             return response()->json([
-                'message' => trans('PackageOrder.property_delete_success'),
+                'message' => trans('category.property_delete_success'),
                 'status' => 200,
             ]);
         } else {
