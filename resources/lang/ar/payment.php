@@ -2,14 +2,14 @@
 
 return [
     'page_title' => 'طرق الدفع',
-    'content_title' => 'طرق الدفع',
+    'content_title' => 'الباقات',
     'ip' => 'IP',
     'status' => 'الحالة',
     'domain' => 'الدومين',
     'created_at' => 'تاريخ الإنشاء',
     'updated_at' => 'تاريخ التعديل',
     'is_active' => 'مفعل',
-    'add' => 'إضافة طريقة دفع',
+    'add' => 'إضافة باقة',
     'js_lang' => [
         'activated' => 'مفعل',
         'disactivated' => 'غير مفعل',

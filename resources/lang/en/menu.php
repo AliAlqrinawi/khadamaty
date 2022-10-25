@@ -11,7 +11,7 @@ return [
     'social'=>'Settings social',
     'cats'=>' Categories',
     'ads'=>'Ads ',
-    'products'=>'Products',
+    'products'=>'Packages',
     'appusers'=>'Customers App',
     'wait'=>'قوائم الانتظار ',
     'order'=>'Orders',

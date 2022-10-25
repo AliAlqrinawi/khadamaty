@@ -62,7 +62,7 @@
                 </li>
   
                 <li class="slide">
-                    <a class="side-menu__item" href="#">
+                    <a class="side-menu__item" href="{{ route('package') }}">
                         <img class="side-menu__icon"
                              src="{{url('https://img.icons8.com/nolan/344/grocery-shelf.png')}}"
                              style=" width: 30px; height: 30px;"/>
@@ -96,7 +96,7 @@
                 </li>
  
                 <li class="slide">
-                    <a class="side-menu__item" href="#">
+                    <a class="side-menu__item" href="{{ route('orders') }}">
                         <img class="side-menu__icon"
                              src="{{url('https://img.icons8.com/ultraviolet/344/deliver-food.png')}}"
                              style=" width: 30px; height: 30px;"/>

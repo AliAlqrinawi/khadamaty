@@ -14,7 +14,7 @@ return [
     'Count_Number' => 'Count Number',
     'Code_Limit' => 'Code Limit',
     'Code_Max' => 'Code Max',
-    'End_At' => 'End At',
+    'End_At' => 'Duration',
     'Fixed_Amount' => 'Fixed Amount',
     'Percent' => 'Percent',
     'Active' => 'Active',

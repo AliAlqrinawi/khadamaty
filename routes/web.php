@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProvincesController;
 use App\Http\Controllers\RegionsController;
 use App\Http\Controllers\SettingController;
@@ -130,3 +132,41 @@ Route::group(
         Route::get('setting/social' , [SettingController::class , 'social'])->name('setting.social');
         Route::post('update/setting/global' , [SettingController::class , 'update'])->name('setting.update');
 });
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale()."/admin",
+        // 'prefix' => "admin",
+        'middleware' => ['auth']
+] , function (){
+    Route::controller(PackagesController::class)->group(function () {
+        Route::get('packages', 'package')->name('package');
+
+        Route::get('packages/get', 'get_packages')->name('get_packages');
+
+        Route::post('package/add' , 'add_package')->name('add_package');
+
+        Route::get('package/edit/{id}' , 'edit')->name('package.edit');
+
+        Route::post('package/update/{id}' , 'update')->name('package.update');
+
+        Route::delete('package/delete/{id}' , 'delete')->name('package.delete');
+    });
+});
+Route::post('package/update/status', [PackagesController::class , 'updateStatus'])->name('package.status');
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale()."/admin",
+        // 'prefix' => "admin",
+        'middleware' => ['auth']
+] , function (){
+    Route::controller(OrdersController::class)->group(function () {
+        Route::get('orders', 'orders')->name('orders');
+
+        Route::get('orders/get', 'get_orders')->name('get_orders');
+
+        Route::delete('order/delete/{id}' , 'delete')->name('order.delete');
+    });
+});
+// Route::post('package/update/status', [PackagesController::class , 'updateStatus'])->name('package.status');
