@@ -40,6 +40,8 @@ return [
     'Request_Accept' => 'قبول الطلب',
     'Charged' => 'شحن',
     'Receipt confirmed' => 'إكتمل الشحن',
+    'paid' => 'مدفوع',
+    'Unpaid' => 'غير مدفوع',
     'js_lang' => [
         'activated' => 'مفعل',
         'disactivated' => 'غير مفعل',

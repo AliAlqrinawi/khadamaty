@@ -41,7 +41,8 @@ return [
     'Request_Accept' => 'Request Accept',
     'Charged' => 'Charged',
     'Receipt confirmed' => 'Receipt confirmed',
-    
+    'paid' => 'paid',
+    'Unpaid' => 'Unpaid',
     'js_lang' => [
         'activated' => 'مفعل',
         'disactivated' => 'غير مفعل',

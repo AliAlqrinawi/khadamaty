@@ -42,4 +42,16 @@ class PackageOrdersController extends Controller
             ]);
         }
     }
+
+    public function updateStatus(Request $request)
+    {
+        $id = $request->id;
+        $categories = PackageOrder::find($id);
+        $categories->status = request('status');
+        $categories->update();
+        return response()->json([
+            'message' => 'Update Success',
+            'status' => 200,
+        ]);
+    }
 }

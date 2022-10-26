@@ -189,7 +189,7 @@ Route::group(
         Route::delete('PackageOrder/delete/{id}' , 'delete')->name('PackageOrder.delete');
     });
 });
-// Route::post('package/update/status', [PackagesController::class , 'updateStatus'])->name('package.status');
+Route::post('PackageOrder/update/status', [PackageOrdersController::class , 'updateStatus'])->name('PackageOrder.status');
 
 Route::group(
     [

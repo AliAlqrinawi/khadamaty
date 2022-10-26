@@ -115,6 +115,8 @@
                                 <th class="border-bottom-0">{{ trans('orders.pacg') }}</th>
                                 <th class="border-bottom-0">{{ trans('orders.worker') }}</th>
                                 <th class="border-bottom-0">{{ trans('orders.workercat') }}</th>
+                                <th class="border-bottom-0">{{ trans('orders.status') }}</th>
+                                <th class="border-bottom-0">{{ trans('orders.payment_status') }}</th>
                                 <th class="border-bottom-0">{{ trans('orders.created_at') }}</th>
                                 <th class="border-bottom-0">
                                 @canany([ 'packageorder-update' , 'packageorder-delete' ])
@@ -199,6 +201,28 @@ var table = $('#get_orders').DataTable({
             },
         },
         {
+            'data': null,
+            render: function(data, row, type) {
+                var phone;
+                if (data.status == '1') {
+                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.Active') }}</button>`;
+                } else {
+                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.iActive') }}</button>`;
+                }
+            },
+        },
+        {
+            'data': null,
+            render: function(data, row, type) {
+                var phone;
+                if (data.payment_status == '1') {
+                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.payment_status}">{{ trans('orders.paid') }}</button>`;
+                } else {
+                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.payment_status}">{{ trans('orders.Unpaid') }}</button>`;
+                }
+            },
+        },
+        {
         'data': null,
         'className': 'text-center text-lg text-medium',
         render: function (data) {
@@ -275,6 +299,70 @@ $(document).on('click', '#Details', function(e) {
     $('#order_date').text(orderdate);
     $('#package_name').text(pac);
     $('#package_price').text(pacprice);
+});
+$(document).on('click', '#status', function(e) {
+    e.preventDefault();
+    // console.log("Alliiiii");
+    var edit_id = $(this).data('id');
+    var status = $(this).data('viewing_status');
+    if(status == 1){
+        status = 0;
+    }else{
+        status = 1;
+    }
+    var data = {
+        id: edit_id,
+        status: status
+    };
+    // console.log(status);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '{{ route("PackageOrder.status") }}',
+        data: data,
+        success: function(response) {
+            // $('#error_message').html("");
+            // $('#error_message').addClass("alert alert-danger");
+            // $('#error_message').text(response.message);
+            table.ajax.reload();
+        }
+    });
+});
+$(document).on('click', '#statusoff', function(e) {
+    e.preventDefault();
+    // console.log("Alliiiii");
+    var edit_id = $(this).data('id');
+    var status = $(this).data('viewing_status');
+    if(status == 1){
+        status = 0;
+    }else{
+        status = 1;
+    }
+    var data = {
+        id: edit_id,
+        status: status
+    };
+    // console.log(status);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '{{ route("PackageOrder.status") }}',
+        data: data,
+        success: function(response) {
+            // $('#error_message').html("");
+            // $('#error_message').addClass("alert alert-danger");
+            // $('#error_message').text(response.message);
+            table.ajax.reload();
+        }
+    });
 });
 </script>
 
