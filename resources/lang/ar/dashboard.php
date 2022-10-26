@@ -6,6 +6,7 @@ return [
     'page_title' => 'الرئيسية',
     'search_operation' => 'عدد عمليات البحث',
     'manual' => 'بحث يدوى ',
+    'PackageOrdersum' => 'فاتورة الباقات',
     'incoming' => 'بحث مكالمات واردة',
     'incoming_name' => 'بحث مكالمات واردة بالاسم',
     'outgoing' => 'بحث مكالمات صادرة',
@@ -14,6 +15,7 @@ return [
     'Wellcome' => 'أهلا وسهلا',
     'Custmer' => 'العملاء',
     'Orders' => 'الطلبات',
+    'PackageOrder' => 'الطلبات الباقات',
     'total_bills' => 'مجموع الفواتير',
 
     'js_lang' => [

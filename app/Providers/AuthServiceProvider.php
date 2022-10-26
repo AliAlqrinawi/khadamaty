@@ -30,5 +30,15 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        // admin functions
+        foreach( config('permission') as $permissions => $lable )
+        {
+            foreach($lable as $q){
+                Gate::define($q , function($user) use($q){
+                    return $user->permissions($q);
+            });
+            }
+        }
     }
 }

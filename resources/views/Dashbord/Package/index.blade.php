@@ -115,12 +115,10 @@
     <!-- End Basic modal -->
     <!-- row -->
     <div class="row">
-
-
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
-                    @can('paymentMethod-create')
+                    @can('package-create')
                     <div class="row row-xs wd-xl-80p">
                         <div class="col-sm-6 col-md-3 mg-t-10">
                             <button class="btn btn-info-gradient btn-block" id="ShowModalAddPayment">
@@ -132,7 +130,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive hoverable-table">
-                        @can('paymentMethod-view')
+                        @can('package-view')
                         <table class="table table-hover" id="get_Payments" style=" text-align: center;">
                             <thead>
                                 <tr>
@@ -141,7 +139,7 @@
                                     <th class="border-bottom-0">{{ trans('clothes.Price') }}</th>
                                     <th class="border-bottom-0">{{ trans('coupons.End_At') }}</th>
                                     <th class="border-bottom-0">
-                                        @canany([ 'paymentMethod-update' , 'paymentMethod-delete' ])
+                                        @canany([ 'package-update' , 'package-delete' ])
                                         {{ trans('category.Processes') }}
                                         @endcanany
                                     </th>
@@ -215,10 +213,10 @@ var table = $('#get_Payments').DataTable({
             'data': null,
             render: function(data, row, type) {
                 return `
-                @can('paymentMethod-update')
+                @can('package-update')
                 <button class="modal-effect btn btn-sm btn-info" id="ShowModalEditPayment" data-id="${data.id}"><i class="las la-pen"></i></button>
                 @endcan
-                @can('paymentMethod-delete')
+                @can('package-delete')
                 <button class="modal-effect btn btn-sm btn-danger" id="DeletePayment" data-id="${data.id}"><i class="las la-trash"></i></button>
                 @endcan
                 `;

@@ -32,5 +32,6 @@ return [
     'cities'=>'City neighborhood ',
     'Alert'=>'Alert Messages',
     'Members_alert' => 'Members alert messages',
-    'fav' => 'Favorite Workers'
+    'fav' => 'Favorite Workers',
+    'Worker' => 'Workers'
 ];

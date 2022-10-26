@@ -4,6 +4,7 @@ return [
     'home' => 'Home',
     'content_title' => 'Admins',
     'page_title' => 'المدراء',
+    'title' => 'Workers',
     'name' => 'الاسم',
     'email' => 'Email',
     'user_name' => 'User Name',

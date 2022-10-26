@@ -8,6 +8,7 @@ use App\Http\Controllers\PackageOrdersController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProvincesController;
 use App\Http\Controllers\RegionsController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -223,6 +224,27 @@ Route::group(
         Route::post('admin/update/{id}' , 'update')->name('admin.update');
 
         Route::delete('admin/delete/{id}' , 'delete')->name('admin.delete');
+
+        Route::get('workers', 'workers')->name('workers');
+
+        Route::get('workers/get', 'get_workers')->name('get_workers');
+
+        Route::get('customers', 'customers')->name('customers');
+
+        Route::get('customers/get', 'get_customers')->name('get_customers');
     });
 });
 Route::post('admin/update/status', [UsersController::class , 'updateStatus'])->name('admin.status');
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale()."/admin",
+    // 'prefix' => "dashbord",
+    'middleware' => ['auth']
+],  function () {
+        Route::resource( 'roles' , RolesController::class);
+        Route::get('show/{id}/{user_id}' , [RolesController::class , 'edit_role'])->name('edit_role');
+        Route::post('update/r/{id}' , [RolesController::class , 'update'])->name('edit_role');
+        Route::get('get_roles' , [RolesController::class , 'get_roles'])->name('get_roles');
+        Route::delete('destroy/{id}/{user_id}' , [RolesController::class , 'destroy'])->name('destroy');
+});

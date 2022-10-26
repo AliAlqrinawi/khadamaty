@@ -120,7 +120,7 @@
                                 <th class="border-bottom-0">{{ trans('app_users.name') }}</th>
                                 <th class="border-bottom-0">{{ trans('app_users.status') }}</th>
                                 <th class="border-bottom-0">
-                                @canany([ 'categories-update' , 'categories-delete' ])
+                                @canany([ 'region-update' , 'region-delete' ])
                                 {{ trans('category.Processes') }}
                                 @endcanany
                                 </th>

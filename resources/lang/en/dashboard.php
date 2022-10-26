@@ -7,6 +7,8 @@ return [
     'Orders' => 'Orders',
     'total_bills' => 'Total Bills',
     'add_user' => 'الرئيسية',
+    'PackageOrder' => 'Packages Orders',
+    'PackageOrdersum' => 'Packages Invoices',
     'page_title' => 'الرئيسية',
     'search_operation' => 'عدد عمليات البحث',
     'manual' => 'بحث يدوى ',

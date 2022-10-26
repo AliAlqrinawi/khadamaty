@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PackageOrder extends Model
 {
     use HasFactory;
-
+    protected $table = "package_orders";
+    
     public function Workers()
     {
         return $this->belongsTo(User::class , 'worker_id' , 'id');

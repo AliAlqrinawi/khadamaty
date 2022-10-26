@@ -71,4 +71,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Fav::class , 'worker_id' , 'id');
     }
+    
+    public function roles(){
+        return $this->belongsToMany(Role::class , 'role_user');
+    }
+    
+    public function permissions($permissions)
+    {
+            foreach($this->roles as $role){
+                if(in_array($permissions ,  $role->permissions)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+    }
 }

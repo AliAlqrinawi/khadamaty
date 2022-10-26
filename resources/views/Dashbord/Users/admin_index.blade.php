@@ -54,6 +54,14 @@
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="form-group col-md-12">
+                                <label class="form-label"> {{ trans('clothes.Status') }} :</label>
+                                <select name="role" class="form-control">
+                                    @foreach($role as $r)
+                                    <option value="{{ $r->id }}">{{ $r->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">{{ trans('admins.password') }} :</label>
                                 <input type="text" class="form-control" id="password" name="password" required>
                             </div>
@@ -87,6 +95,14 @@
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">{{ trans('admins.email') }} :</label>
                                 <input type="email" class="form-control" id="admin_email" name="email" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="form-label"> {{ trans('role') }} :</label>
+                                <select name="role" id="role" class="form-control">
+                                    @foreach($role as $r)
+                                    <option value="{{ $r->id }}">{{ $r->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <!-- <div class="form-group col-md-12">
                             <label for="exampleInputEmail1">{{ trans('admins.password') }} :</label>
@@ -127,8 +143,8 @@
                                     <th class="wd-10p border-bottom-0">#</th>
                                     <th class="wd-15p border-bottom-0">{{ trans('admins.user_name') }}</th>
                                     <th class="wd-20p border-bottom-0">{{ trans('admins.email') }}</th>
-                                    <th class="border-bottom-0">{{ trans('ads.Status') }}</th>
-                                    <th class="wd-10p border-bottom-0">
+                                    <th class="wd-10p border-bottom-0">{{ trans('ads.Status') }}</th>
+                                    <th class="wd-20p border-bottom-0">
                                         @canany([ 'member-update' , 'member-delete' ])
                                         {{ trans('admins.Processes') }}
                                         @endcanany
@@ -348,9 +364,9 @@ $(document).on('click', '#status', function(e) {
     // console.log("Alliiiii");
     var edit_id = $(this).data('id');
     var status = $(this).data('viewing_status');
-    if(status == 1){
+    if (status == 1) {
         status = 0;
-    }else{
+    } else {
         status = 1;
     }
     var data = {
@@ -380,9 +396,9 @@ $(document).on('click', '#statusoff', function(e) {
     // console.log("Alliiiii");
     var edit_id = $(this).data('id');
     var status = $(this).data('viewing_status');
-    if(status == 1){
+    if (status == 1) {
         status = 0;
-    }else{
+    } else {
         status = 1;
     }
     var data = {

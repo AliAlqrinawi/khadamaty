@@ -110,11 +110,10 @@
 <!-- End Basic modal -->
 <!-- row -->
 <div class="row">
-
-
     <div class="col-xl-12">
         <div class="card mg-b-20">
             <div class="card-header pb-0">
+                @can('region-create')
                 <div class="row row-xs wd-xl-80p">
                     <div class="col-sm-6 col-md-3 mg-t-10">
                         <button class="btn btn-info-gradient btn-block" id="ShowModalAddcity">
@@ -122,8 +121,10 @@
                         </button>
                     </div>
                 </div>
+                @endcan
             </div>
             <div class="card-body">
+            @can('region-view')
                 <div class="table-responsive hoverable-table">
                     <table class="table table-hover" id="get_cities" style=" text-align: center;">
                         <thead>
@@ -132,18 +133,22 @@
                                 <th class="border-bottom-0">Area Name</th>
                                 <th class="border-bottom-0">Added date</th>
                                 <th class="border-bottom-0">Status</th>
-                                <th class="border-bottom-0">Processes</th>
+                                <th class="border-bottom-0">
+                                @canany([ 'region-update' , 'region-delete' ])
+                                {{ trans('category.Processes') }}
+                                @endcanany
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
                 </div>
+            @endcan
             </div>
         </div>
     </div>
 </div>
-    </div>
 @endsection
 
 @section('js')
@@ -213,8 +218,15 @@ var table = $('#get_cities').DataTable({
         {
             'data': null,
             render: function(data, row, type) {
-                return `<button class="modal-effect btn btn-sm btn-info" id="ShowModalEditcity" data-id="${data.id}"><i class="las la-pen"></i></button>
-                        <button class="modal-effect btn btn-sm btn-danger" id="Deletecity" data-id="${data.id}"><i class="las la-trash"></i></button>`;
+                return `
+                @can('region-update')
+                <button class="modal-effect btn btn-sm btn-info" id="ShowModalEditcity" data-id="${data.id}"><i class="las la-pen"></i></button>
+                @endcan
+                @can('region-delete')
+                <button class="modal-effect btn btn-sm btn-danger" id="Deletecity" data-id="${data.id}"><i class="las la-trash"></i></button>
+                @endcan
+                `;
+            
             },
             orderable: false,
             searchable: false

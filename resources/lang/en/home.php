@@ -6,6 +6,7 @@ return [
     "customers" => 'Customers',
     "shops" => 'Shops',
     "products" => 'Products',
+    "pace" => 'Packages',
     "orders" => 'Orders',
     "chart" => 'Orders and Events Chart',
 
