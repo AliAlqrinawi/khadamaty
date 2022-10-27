@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function OrderCustmers()
     {
-        return $this->hasMany(Orders::class , 'custmer_id ' , 'id');
+        return $this->hasMany(Orders::class , 'custmer_id' , 'id');
     }
     
     public function OrderWorkers()
@@ -60,6 +60,11 @@ class User extends Authenticatable
     public function Packages()
     {
         return $this->hasMany(PackageOrder::class , 'worker_id' , 'id');
+    }
+
+    public function regino()
+    {
+        return $this->belongsTo(Regions::class , 'regino_id' , 'id');
     }
 
     public function FavCustmers()

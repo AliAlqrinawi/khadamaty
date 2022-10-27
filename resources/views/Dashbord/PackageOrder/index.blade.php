@@ -101,6 +101,46 @@
         </div>
     </div>
 <div class="row">
+@can('packageorder-view')
+<div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('PackageOrder.export') }}" method="post">
+                    @csrf
+                    <div class="row mg-b-20">
+                        <div class="parsley-input col-md-3" id="fnWrapper">
+                            <label>{{ trans('orders.pacg') }} :</label>
+                            <input type="text" class="form-control form-control-md mg-b-20" name="package"
+                                id="package">
+                        </div>
+                        <div class="parsley-input col-md-3 mg-t-20 mg-md-t-0" id="lnWrapper">
+                            <label>{{ trans('orders.worker') }} :</label>
+                            <input type="text" class="form-control form-control-md mg-b-20" name="worker"
+                                id="worker">
+                        </div>
+                        <div class="parsley-input col-md-3 mg-t-20 mg-md-t-0" id="lnWrapper">
+                            <label>{{trans('orders.phone')}} :</label>
+                            <input type="number" class="form-control form-control-md mg-b-20" name="phone"
+                                id="phone">
+                        </div>
+                        <div class="parsley-input col-md-3 mg-t-20 mg-md-t-0" id="lnWrapper">
+                            <label>{{trans('orders.workercat')}} :</label>
+                            <select class="form-control form-control-md mg-b-20" id="cat_id" name="cat_id">
+                                <option value="">{{ trans('orders.all') }}</option>
+                                @foreach($cat as $c)
+                                <option value="{{ $c->id }}">{{ $c->title_ar }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Download</button>
+                </form>
+                <br>
+                <button  class="btn btn-primary" id="s">{{ trans('orders.Sarech') }}</button>
+            </div>
+        </div>
+    </div>
+    @endcan
     <div class="col-xl-12">
         <div class="card mg-b-20">
             <div class="card-header pb-0">
@@ -162,6 +202,121 @@
 <script src="{{URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
 <script>
 var local = "{{ App::getLocale() }}";
+$('#s').click(function(e) {
+    e.preventDefault();
+    var worker = $('#worker').val();
+    var phone = $('#phone').val();
+    var package = $('#package').val();
+    var cat_id = $('#cat_id').val();
+
+    $('#get_orders').DataTable({
+        bDestroy: true,
+        processing: true,
+        serverSide: true,
+        searching: false,
+        pageLength: 20,
+        ajax: {
+            url: '{{route("get_PackageOrder")}}/?package=' + package +
+                '&worker=' + worker + '&phone=' + phone + '&cat_id=' +
+                cat_id,
+            cache: true
+        },
+        columns: [
+        {
+            'data': 'id',
+            'className': 'text-center text-lg text-medium'
+        },
+        {
+            'data': null,
+            'className': 'text-center text-lg text-medium',
+            render: function(data, row, type) {
+                if (local == "en") {
+                    return data.packages.title_en;
+                } else {
+                    return data.packages.title_ar;
+
+                }
+            },
+        },
+        {
+            'data': null,
+            'className': 'text-center text-lg text-medium',
+            render: function(data, row, type) {
+                return data.workers.first_name+ " " + data.workers.last_name;
+            },
+        },
+        {
+            'data': null,
+            'className': 'text-center text-lg text-medium',
+            render: function(data, row, type) {
+                if (local == "en") {
+                    return data.workers.categories.title_en;
+                } else {
+                    return data.workers.categories.title_ar;
+                }
+            },
+        },
+        {
+            'data': null,
+            render: function(data, row, type) {
+                var phone;
+                if (data.status == '1') {
+                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.Active') }}</button>`;
+                } else {
+                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.iActive') }}</button>`;
+                }
+            },
+        },
+        {
+            'data': null,
+            render: function(data, row, type) {
+                var phone;
+                if (data.payment_status == '1') {
+                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.payment_status}">{{ trans('orders.paid') }}</button>`;
+                } else {
+                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.payment_status}">{{ trans('orders.Unpaid') }}</button>`;
+                }
+            },
+        },
+        {
+        'data': null,
+        'className': 'text-center text-lg text-medium',
+        render: function (data) {
+            if (data == null) return "";
+            var dateFormat = new Date(data.created_at);
+            return dateFormat.getDate()+
+           "/"+(dateFormat.getMonth()+1)+
+           "/"+dateFormat.getFullYear();
+            }
+        },
+        {
+            'data': null,
+            render: function(data, row, type) {
+                return `
+                <a class="modal-effect btn btn-warning btn-sm" 
+                data-effect="effect-scale"
+                id = "Details"
+                data-id="${data.id}" 
+                data-worker="${data.workers.first_name+ " " + data.workers.last_name ?? ''}" 
+                data-workercat="${data.workers.categories.title_ar ?? ''}" 
+                data-workerphone="${data.workers.mobile_number ?? ''}" 
+                data-workerid="${data.workers.id ?? ''}"
+                data-orderdate="${data.created_at}" 
+                data-pac="${data.packages.title_ar}"
+                data-pacprice="${data.packages.price}"
+                data-toggle="modal" href="#exampleModal2" title="تفاصيل">
+                <i class="fas fa-eye"></i>
+                Details
+                </a>
+                @can('packageorder-delete')
+                <button class="modal-effect btn btn-sm btn-danger" id="DeleteCategory" data-id="${data.id}"><i class="las la-trash"></i></button>
+                @endcan`;
+            },
+        },
+    ],
+    });
+});
+
 var table = $('#get_orders').DataTable({
     // processing: true,
     ajax: '{!! route("get_PackageOrder") !!}',

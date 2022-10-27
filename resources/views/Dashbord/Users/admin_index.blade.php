@@ -204,12 +204,14 @@ var table = $('#get_admins').DataTable({
         },
         {
             'data': null,
-            'className': 'text-center text-lg text-medium',
             render: function(data, row, type) {
-                if (data.status == '1') {
-                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.Active') }}</button>`;
+                var phone;
+                if (data.status == 'active') {
+                    return `<button class="btn btn-success-gradient btn-block" id="active" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.Active') }}</button>`;
+                } else if (data.status == 'inactive') {
+                    return `<button class="btn btn-danger-gradient btn-block" id="inactive" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.iActive') }}</button>`;
                 } else {
-                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.iActive') }}</button>`;
+                    return `<button class="btn btn-warning-gradient btn-block" id="pending_activation" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('app_users.pActive') }}</button>`;
                 }
             },
         },
@@ -359,15 +361,15 @@ $(document).on('click', '#DeleteAdmin', function(e) {
     });
 });
 
-$(document).on('click', '#status', function(e) {
+$(document).on('click', '#active', function(e) {
     e.preventDefault();
     // console.log("Alliiiii");
     var edit_id = $(this).data('id');
     var status = $(this).data('viewing_status');
-    if (status == 1) {
-        status = 0;
+    if (status == "active") {
+        status = "inactive";
     } else {
-        status = 1;
+        status = "pending_activation";
     }
     var data = {
         id: edit_id,
@@ -391,15 +393,47 @@ $(document).on('click', '#status', function(e) {
         }
     });
 });
-$(document).on('click', '#statusoff', function(e) {
+$(document).on('click', '#pending_activation', function(e) {
     e.preventDefault();
     // console.log("Alliiiii");
     var edit_id = $(this).data('id');
     var status = $(this).data('viewing_status');
-    if (status == 1) {
-        status = 0;
+    if (status == "pending_activation") {
+        status = "active";
     } else {
-        status = 1;
+        status = "inactive";
+    }
+    var data = {
+        id: edit_id,
+        status: status
+    };
+    // console.log(status);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '{{ route("admin.status") }}',
+        data: data,
+        success: function(response) {
+            // $('#error_message').html("");
+            // $('#error_message').addClass("alert alert-danger");
+            // $('#error_message').text(response.message);
+            table.ajax.reload();
+        }
+    });
+});
+$(document).on('click', '#inactive', function(e) {
+    e.preventDefault();
+    // console.log("Alliiiii");
+    var edit_id = $(this).data('id');
+    var status = $(this).data('viewing_status');
+    if (status == "inactive") {
+        status = "pending_activation";
+    } else {
+        status = "active";
     }
     var data = {
         id: edit_id,

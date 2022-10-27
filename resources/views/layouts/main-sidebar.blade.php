@@ -133,7 +133,7 @@
             @endcan
             @can('worker-view')
             <li class="slide">
-                <a class="side-menu__item" href="{{ route('workers') }}">
+                <a class="side-menu__item" href="{{ url('admin/workers') }}">
                     <img class="side-menu__icon" src="{{url('https://img.icons8.com/nolan/344/customer-insight.png')}}"
                         style=" width: 30px; height: 30px;" />
                     <span class="side-menu__label" style=" font-weight: bold;">{{trans('menu.Worker')}}</span>

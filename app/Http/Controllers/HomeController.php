@@ -25,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $events=Packages::count();
         $orders_count=PackageOrder::count();
 
@@ -40,6 +39,8 @@ class HomeController extends Controller
             $products[]=$product->count();
             $orders[]=$order->count();
         }
-        return view('index',compact('events','orders_count','date','products','orders'));
+        $p = PackageOrder::with('Packages')->get();
+   
+        return view('index',compact('events','orders_count','date','products','orders' , 'p'));
     }
 }

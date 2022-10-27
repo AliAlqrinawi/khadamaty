@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
+use App\Http\Repositories\OrderRepositories;
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrdersController extends Controller
 {
@@ -11,20 +14,11 @@ class OrdersController extends Controller
         return view('Dashbord.Order.index');
     }
 
-    public function get_orders(){
-        $Orders = Orders::with('Custmers' , 'Workers.Categories')->get();
-        if ($Orders) {
-            return response()->json([
-                'message' => 'Data Found',
-                'status' => 200,
-                'data' => $Orders
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Data Not Found',
-                'status' => 404,
-            ]);
-        }
+    public function get_orders(Request $request , OrderRepositories $orders){
+        $dataTable = $orders->getDataTableClasses($request->all());
+        $dataTable->addIndexColumn();
+        $dataTable->escapeColumns(['*']);
+        return $dataTable->make(true);
     }
 
     public function delete ($id){
@@ -41,5 +35,11 @@ class OrdersController extends Controller
                 'status' => 404,
             ]);
         }
+    }
+
+    public function export(Request $request) 
+    {
+        // return $request->all();
+        return Excel::download(new OrdersExport($request), 'Orders.xlsx');
     }
 }

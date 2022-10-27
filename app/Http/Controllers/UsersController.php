@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use App\Exports\WorkersExport;
+use App\Http\Repositories\AppUserRepositories;
+use App\Models\Categories;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -9,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 class UsersController extends Controller
 {
     public function admins(){
@@ -36,6 +41,7 @@ class UsersController extends Controller
         $admin = new User();
         $admin->first_name = $request->name;
         $admin->email = $request->email;
+        $admin->status = 'active';
         $admin->type = '1';
         // $admin->mobile = $request->phone;
         // $admin->type = $request->role;
@@ -113,6 +119,7 @@ class UsersController extends Controller
 
     public function updateStatus(Request $request)
     {
+        // return $request->all();
         $id = $request->id;
         $categories = User::find($id);
         $categories->status = request('status');
@@ -125,45 +132,39 @@ class UsersController extends Controller
     // Workers
 
     public function Workers(){
-
-        return view('Dashbord.Users.worker_index');
+        // $query = User::select(
+        //     'id' , 'first_name' , 'last_name' , 'mobile_number'  , 'status' , 'regino_id'
+        // )->with(['regino' , 'Categories']);
+        // dd($query->get());
+        $cat = Categories::get();
+        return view('Dashbord.Users.worker_index' , compact('cat'));
     }
 
-    public function get_workers (){
-        $workers = User::where('type' , '3')->with('Categories')->get();
-        if ($workers) {
-            return response()->json([
-                'message' => 'Data Found',
-                'status' => 200,
-                'data' => $workers
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Data Not Found',
-                'status' => 404,
-            ]);
-        }
+    public function get_workers (Request $request , AppUserRepositories $customers){
+        $dataTable = $customers->getDataTableClasses($request->all());
+        $dataTable->addIndexColumn();
+        $dataTable->escapeColumns(['*']);
+        return $dataTable->make(true);
     }
 
-    // Custmer
+    public function export_workers (Request $request) 
+    {
+        return Excel::download(new WorkersExport($request), 'Workers.xlsx');
+    }
+
     public function customers(){
-
         return view('Dashbord.Users.customer_index');
     }
 
-    public function get_customers (){
-        $workers = User::where('type' , '2')->get();
-        if ($workers) {
-            return response()->json([
-                'message' => 'Data Found',
-                'status' => 200,
-                'data' => $workers
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Data Not Found',
-                'status' => 404,
-            ]);
-        }
+    public function get_customers (Request $request , AppUserRepositories $customers){
+        $dataTable = $customers->getDataTableClasses($request->all());
+        $dataTable->addIndexColumn();
+        $dataTable->escapeColumns(['*']);
+        return $dataTable->make(true);
+    }
+
+    public function export(Request $request) 
+    {
+        return Excel::download(new UsersExport($request), 'Custmers.xlsx');
     }
 }

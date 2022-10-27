@@ -105,6 +105,46 @@
         </div>
     </div>
 <div class="row">
+@can('order-view')
+<div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('orders.export') }}" method="post">
+                    @csrf
+                    <div class="row mg-b-20">
+                        <div class="parsley-input col-md-3" id="fnWrapper">
+                            <label>{{ trans('orders.custmer') }} :</label>
+                            <input type="text" class="form-control form-control-md mg-b-20" name="custmer"
+                                id="custmer">
+                        </div>
+                        <div class="parsley-input col-md-3 mg-t-20 mg-md-t-0" id="lnWrapper">
+                            <label>{{ trans('orders.worker') }} :</label>
+                            <input type="text" class="form-control form-control-md mg-b-20" name="worker"
+                                id="worker">
+                        </div>
+                        <div class="parsley-input col-md-3 mg-t-20 mg-md-t-0" id="lnWrapper">
+                            <label>{{trans('orders.phone')}} :</label>
+                            <input type="number" class="form-control form-control-md mg-b-20" name="phone"
+                                id="phone">
+                        </div>
+                        <div class="parsley-input col-md-3 mg-t-20 mg-md-t-0" id="lnWrapper">
+                            <label>{{trans('orders.payment_status')}} :</label>
+                            <select class="form-control form-control-md mg-b-20" id="payment_status" name="payment_status">
+                                <option value="">{{ trans('orders.all') }}</option>
+                                <option value="1">تم الدفع</option>
+                                <option value="null">فشل الدفع</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Download</button>
+                </form>
+                <br>
+                <button  class="btn btn-primary" id="s">{{ trans('orders.Sarech') }}</button>
+            </div>
+        </div>
+    </div>
+    @endcan
+</div>
     <div class="col-xl-12">
         <div class="card mg-b-20">
             <div class="card-header pb-0">
@@ -134,8 +174,6 @@
                     @endcan
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -165,6 +203,118 @@
 <script src="{{URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
 <script>
 var local = "{{ App::getLocale() }}";
+$('#s').click(function(e) {
+    e.preventDefault();
+    var custmer = $('#custmer').val();
+    var worker = $('#worker').val();
+    var phone = $('#phone').val();
+    var payment_status = $('#payment_status').val();
+
+    $('#get_orders').DataTable({
+        bDestroy: true,
+        processing: true,
+        serverSide: true,
+        searching: false,
+        pageLength: 20,
+        ajax: {
+            url: '{{route("get_orders")}}/?custmer=' + custmer +
+                '&worker=' + worker + '&phone=' + phone + '&payment_status=' +
+                payment_status,
+            cache: true
+        },
+        columns: 
+        [
+            {
+                'data': 'id',
+                'className': 'text-center text-lg text-medium'
+            },
+            {
+                'data': null,
+                'className': 'text-center text-lg text-medium',
+                render: function(data, row, type) {
+                    return data.custmers.first_name+ " " + data.custmers.last_name;
+                },
+            },
+            {
+                'data': null,
+                'className': 'text-center text-lg text-medium',
+                render: function(data, row, type) {
+                    return data.workers.first_name+ " " + data.workers.last_name;
+                },
+            },
+            {
+                'data': null,
+                'className': 'text-center text-lg text-medium',
+                render: function(data, row, type) {
+                    if (local == "en") {
+                        return data.workers.categories.title_en;
+                    } else {
+                        return data.workers.categories.title_ar;
+                    }
+                },
+            },
+            {
+            'data': null,
+            'className': 'text-center text-lg text-medium',
+            render: function (data) {
+                if (data == null) return "";
+                var dateFormat = new Date(data.created_at);
+                return dateFormat.getDate()+
+            "/"+(dateFormat.getMonth()+1)+
+            "/"+dateFormat.getFullYear();
+                }
+            },
+            {
+                'data': null,
+                render: function(data, row, type) {
+                    var phone;
+                    if (data.status == '1') {
+                        return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.new') }}</button>`;
+                    }else if(data.status == '2'){
+
+                    }else if(data.status == '3'){
+
+                    }else if(data.status == '4'){
+
+                    }else if(data.status == '5'){
+
+                    }else {
+                        return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.iActive') }}</button>`;
+                    }
+                },
+            },
+            {
+                'data': null,
+                render: function(data, row, type) {
+                    return `
+                    @can('order-view')
+                    <a class="modal-effect btn btn-warning btn-sm" 
+                    data-effect="effect-scale"
+                    id = "Details"
+                    data-id="${data.id}" 
+                    data-custmer="${data.custmers.first_name+ " " + data.custmers.last_name ?? ''}"
+                    data-worker="${data.workers.first_name+ " " + data.workers.last_name ?? ''}" 
+                    data-workercat="${data.workers.categories.title_ar ?? ''}" 
+                    data-workerphone="${data.workers.mobile_number ?? ''}" 
+                    data-custmerphone="${data.custmers.mobile_number ?? ''}"
+                    data-custmerid="${data.custmers.id ?? ''}"
+                    data-workerid="${data.workers.id ?? ''}"
+                    data-orderdate="${data.created_at}" 
+                    data-toggle="modal" href="#exampleModal2" title="تفاصيل">
+                    <i class="fas fa-eye"></i>
+                    Details
+                    </a>
+                    @endcan
+                    @can('order-delete')
+                    <button class="modal-effect btn btn-sm btn-danger" id="DeleteCategory" data-id="${data.id}"><i class="las la-trash"></i></button>
+                    @endcan`;
+                },
+            },
+    ],
+    });
+    $('#get_orders').addClass('col-sm-12');
+});
+
 var table = $('#get_orders').DataTable({
     // processing: true,
     ajax: '{!! route("get_orders") !!}',
@@ -364,6 +514,7 @@ $(document).on('click', '#Details', function(e) {
     $('#custmer_phone').text(custmerphone);
     $('#order_date').text(orderdate);
 });
+
 </script>
 
 @endsection

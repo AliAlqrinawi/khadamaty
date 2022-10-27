@@ -171,6 +171,8 @@ Route::group(
         Route::get('orders/get', 'get_orders')->name('get_orders');
 
         Route::delete('order/delete/{id}' , 'delete')->name('order.delete');
+
+        Route::post('order/export', [OrdersController::class, 'export'])->name('orders.export');
     });
 });
 // Route::post('package/update/status', [PackagesController::class , 'updateStatus'])->name('package.status');
@@ -186,7 +188,11 @@ Route::group(
 
         Route::get('PackageOrder/get', 'get_PackageOrder')->name('get_PackageOrder');
 
+        Route::get('PackageOrder/pdf', 'print')->name('pdf_PackageOrder');
+
         Route::delete('PackageOrder/delete/{id}' , 'delete')->name('PackageOrder.delete');
+        
+        Route::post('PackageOrder/export', [PackageOrdersController::class, 'export'])->name('PackageOrder.export');
     });
 });
 Route::post('PackageOrder/update/status', [PackageOrdersController::class , 'updateStatus'])->name('PackageOrder.status');
@@ -229,9 +235,13 @@ Route::group(
 
         Route::get('workers/get', 'get_workers')->name('get_workers');
 
+        Route::post('workers/export', [UsersController::class, 'export_workers'])->name('workers.export');
+
         Route::get('customers', 'customers')->name('customers');
 
         Route::get('customers/get', 'get_customers')->name('get_customers');
+        
+        Route::post('customers/export', [UsersController::class, 'export'])->name('customers.export');
     });
 });
 Route::post('admin/update/status', [UsersController::class , 'updateStatus'])->name('admin.status');
