@@ -69,6 +69,57 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Order Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="payment/update" method="post" autocomplete="off" enctype="multipart/form-data">
+                        <input type="hidden" name="_method" value="patch">
+                        <input type="hidden" name="_token" value="bho3ucwXV924HuADSjVR9WSKwpb5jvuIqz9ZzB4m">
+                        <input type="hidden" name="id" id="id" value="">
+                        <div class="row">
+                            <table class="table table-hover" style=" text-align: center;">
+                                <thead>
+                                <tr>
+                                    <th>{{ trans('orders.title') }}</th>
+                                    <th>{{ trans('orders.description') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>#</th>
+                                    <td id="idorder"></td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('orders.custmer') }}</th>
+                                    <td id="custmer12"></td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('orders.phone') }}</th>
+                                    <td id="phone12"></td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('orders.whats') }}</th>
+                                    <td id="custmer_whats"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @endcan
         <div class="col-xl-12">
             <div class="card">
@@ -246,11 +297,21 @@ var table = $('#get_admins').DataTable({
             'data': null,
             render: function(data, row, type) {
                 return `
+                <a class="modal-effect btn btn-warning btn-sm" 
+                data-effect="effect-scale"
+                id = "Details"
+                data-id="${data.id}" 
+                data-custmer="${data.first_name+ " " + data.last_name ?? ''}" 
+                data-custmerphone="${data.mobile_number ?? ''}" 
+                data-custmerwhats="${data.num_whats ?? ''}" 
+                data-toggle="modal" href="#exampleModal2" title="تفاصيل">
+                <i class="fas fa-eye"></i>
+                Details
+                </a>
                 @can('customer-delete')
                 <button class="modal-effect btn btn-sm btn-danger" id="DeleteAdmin" data-id="${data.id}"><i class="las la-trash"></i></button>
                 @endcan
                 `;
-
             },
         },
     ],
@@ -378,6 +439,19 @@ $(document).on('click', '#inactive', function(e) {
             table.ajax.reload();
         }
     });
+});
+
+$(document).on('click', '#Details', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var worker = $(this).data('custmer');
+    var workerphone = $(this).data('custmerphone');
+    var custmerwhats = $(this).data('custmerwhats');
+    $('#idorder').text(id);
+    $('#custmer12').text(worker);
+    $('#phone12').text(workerphone);
+    $('#custmer_whats').text(custmerwhats);
+ 
 });
 </script>
 

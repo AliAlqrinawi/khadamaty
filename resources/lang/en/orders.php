@@ -31,6 +31,7 @@ return [
     'payment_method' => 'Payment Method',
     'phone' => 'Phone',
     'status' => 'Status',
+    'whats' => 'Whats Up Number',
     'name' => 'Name',
     'total' => 'Total',
     'payment' => 'Payment Method',

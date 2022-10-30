@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\PackageOrder;
+use Illuminate\Support\Facades\App;
 use Yajra\DataTables\Facades\DataTables;
 
 class PackagesOrderRepositories
@@ -24,7 +25,7 @@ class PackagesOrderRepositories
         }
         if ($package){
             $query->whereHas('Packages', function ($query) use($package) {
-                $query->where('title_ar' , '=' , );
+                $query->where('title_ar' , '=' , $package)->Orwhere('title_en' , '=' , $package);
             });
         }
         if ($phone){
