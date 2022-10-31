@@ -100,6 +100,60 @@ class UsersController extends Controller
         }
     }
 
+    public function edit_admin()
+    {
+        $id=auth()->user()->id;
+        $user = User::find($id);
+
+        return view('Dashbord.Users.edit',compact('user'));
+    }
+
+    public function update_admin(Request $request)
+    {
+ 
+        $id=$request->id;
+ 
+        $rules = [
+            'email' => 'required|email|unique:users,email,'.$id,
+        ];
+
+        $validation = $request->validate($rules);
+
+        $users = User::find($id);
+        $users->first_name = $request->first_name;
+        $users->email = $request->email;
+        $users->save();
+        session()->flash('success', 'تم تعديل المستخدم بنجاح ');
+        return redirect('/');
+    }
+
+    public function reset_Password()
+    {
+        $id=auth()->user()->id;
+        $user = User::find($id);
+        return view('Dashbord.Users.reset_password',compact('user'));
+    }
+
+    public function resetPassword(Request $request)
+    {
+ 
+        $rules = [
+            'old_password' => 'required|min:3',
+            'new_password' => 'required|min:3',
+            'confirm_password' => 'required|min:3|same:new_password',
+        ];
+        $validated = $request->validate($rules);
+        $user = auth()->user();
+        if (!Hash::check($request->get('old_password'), $user->password)) {
+            $message = __('api.old_password'); //wrong old
+            return redirect()->back()->with('delete' , 'كلمة السر القديمة خاطئة');
+        }else{
+            $user->password = bcrypt($request->get('new_password'));
+            $user->save();
+            return redirect('/');
+        }
+    }
+
     
     public function delete ($id){
         $admin = User::find($id);

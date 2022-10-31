@@ -22,7 +22,6 @@
             <ul class="nav">
                 <li class="">
                     <div class="dropdown  nav-itemd-none d-md-flex">
-
                         <div class="dropdown-menu">
                             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                             <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
@@ -64,7 +63,7 @@
             </ul>
             <div class="nav nav-item  navbar-nav-right ml-auto">
 
-                <div class="nav-link" id="bs-example-navbar-collapse-1">
+                <!-- <div class="nav-link" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search">
@@ -83,7 +82,7 @@
                             </span>
                         </div>
                     </form>
-                </div>
+                </div> -->
                 <div class="nav-item full-screen fullscreen-button">
                     <a class="new nav-link full-screen-link" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none"
@@ -112,9 +111,9 @@
                                 class="bx bx-user-circle"></i>{{trans('main_trans.ch')}}</a>
                         <a class="dropdown-item" href="{{url('admin/edit/')}}"><i
                                 class="bx bx-cog"></i> {{trans('main_trans.Edit_Profile')}}</a>
-                        <a class="dropdown-item" href="{{url('/')}}"><i class="bx bxs-inbox"></i>Inbox</a>
-                        <a class="dropdown-item" href="{{url('admin/contact')}}"><i
-                                class="bx bx-envelope"></i>{{trans('main_trans.Messages')}}</a>
+                        <!-- <a class="dropdown-item" href="{{url('/')}}"><i class="bx bxs-inbox"></i>Inbox</a> -->
+                        <!-- <a class="dropdown-item" href="{{url('admin/contact')}}"><i
+                                class="bx bx-envelope"></i>{{trans('main_trans.Messages')}}</a> -->
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             <i class="bx bx-log-out"></i>{{trans('main_trans.Sign_Out')}}
@@ -122,11 +121,10 @@
                         <a class="dropdown-item" href="{{ route('logout') }}"></a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
-
                         </form>
                     </div>
                 </div>
-                <div class="dropdown main-header-message right-toggle">
+                <!-- <div class="dropdown main-header-message right-toggle">
                     <a class="nav-link pr-0" data-toggle="sidebar-left" data-target=".sidebar-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -136,7 +134,7 @@
                             <line x1="3" y1="18" x2="21" y2="18"></line>
                         </svg>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

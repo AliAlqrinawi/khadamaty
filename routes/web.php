@@ -37,6 +37,11 @@ Route::group(
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
+Route::get('admin/edit', 'App\Http\Controllers\UsersController@edit_admin')->name('admin.edit');
+Route::post('admin/update', [App\Http\Controllers\UsersController::class, 'update_admin'])->name('admin.updat');
+Route::get('admin/resetPassword', [App\Http\Controllers\UsersController::class, 'reset_Password']);
+Route::post('admin/reset-Password', [App\Http\Controllers\UsersController::class, 'resetPassword'])->name('admin.resetPassword');
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale()."/admin",

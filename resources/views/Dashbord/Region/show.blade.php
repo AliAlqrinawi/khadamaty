@@ -21,8 +21,8 @@
 <div class="breadcrumb-header justify-content-between">
     <div class="my-auto">
         <div class="d-flex">
-            <h4 class="content-title mb-0 my-auto">Home</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> /
-                cities</span>
+            <h4 class="content-title mb-0 my-auto">{{ trans('admins.home') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> /
+            {{ trans('city.Biology') }}</span>
         </div>
 
     </div>
@@ -37,40 +37,37 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">cities</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                <h6 class="modal-title">{{ trans('city.Biology') }}</h6><button aria-label="Close" class="close" data-dismiss="modal"
                     type="button"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form id="formcity" enctype="multipart/form-data">
-                    <div class="row">
+                <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Einglish :</label>
+                            <label for="exampleInputEmail1">{{ trans('city.title_en') }} :</label>
                             <input type="text" class="form-control" name="title_en" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Arabic :</label>
+                            <label for="exampleInputEmail1">{{ trans('city.title_ar') }} :</label>
                             <input type="text" class="form-control" name="title_ar" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Einglish :</label>
-                            <input type="number" class="form-control" name="delivery_cost" required>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Arabic :</label>
-                            <input type="number" class="form-control" name="order_limit" required>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="form-label"> Prodect Status :</label>
-                            <select name="governorat_id" class="form-control">
+                            <label class="form-label"> {{ trans('city.Province') }} :</label>
+                            <select name="province_id" class="form-control">
                                 @foreach($Gov as $c)
+                                @if(App::getLocale() == 'en')
                                 <option value="{{ $c->id }}">{{ $c->title_en }}</option>
+                                @endif
+                                @if(App::getLocale() == 'ar')
+                                <option value="{{ $c->id }}">{{ $c->title_ar }}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success Addcity" id="Addcity">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success Addcity" id="Addcity">{{ trans('city.save') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('city.close') }}</button>
                     </div>
                 </form>
             </div>
@@ -82,34 +79,31 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">cityes</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                <h6 class="modal-title">{{ trans('city.Biology') }}</h6><button aria-label="Close" class="close" data-dismiss="modal"
                     type="button"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form id="formeditadmin" enctype="multipart/form-data">
-                    <input type="hidden" class="form-control" id="id_city">
+                <input type="hidden" class="form-control" id="id_city">
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Einglish :</label>
+                            <label for="exampleInputEmail1">{{ trans('city.title_en') }} :</label>
                             <input type="text" class="form-control" name="title_en" id="title_en" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Arabic :</label>
+                            <label for="exampleInputEmail1">{{ trans('city.title_ar') }} :</label>
                             <input type="text" class="form-control" name="title_ar" id="title_ar" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Einglish :</label>
-                            <input type="number" class="form-control" name="delivery_cost" id="delivery_cost" required>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="exampleInputEmail1">city Title Arabic :</label>
-                            <input type="number" class="form-control" name="order_limit" id="order_limit" required>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="form-label"> Prodect Status : <span id="governora"></span></label>
-                            <select name="governorat_id" class="form-control">
+                            <label class="form-label"> {{ trans('city.Province') }} : <span id="governora"></span></label>
+                            <select name="province_id" class="form-control">
                                 @foreach($Gov as $c)
+                                @if(App::getLocale() == 'en')
                                 <option value="{{ $c->id }}">{{ $c->title_en }}</option>
+                                @endif
+                                @if(App::getLocale() == 'ar')
+                                <option value="{{ $c->id }}">{{ $c->title_ar }}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>
@@ -133,7 +127,7 @@
                 <div class="row row-xs wd-xl-80p">
                     <div class="col-sm-6 col-md-3 mg-t-10">
                         <button class="btn btn-info-gradient btn-block" id="ShowModalAddcity">
-                            <a href="#" style="font-weight: bold; color: beige;">Add city</a>
+                            <a href="#" style="font-weight: bold; color: beige;">{{ trans('city.add') }}</a>
                         </button>
                     </div>
                 </div>
@@ -145,13 +139,13 @@
                     <table class="table table-hover" id="get_cities" style=" text-align: center;">
                         <thead>
                             <tr>
-                                <th class="border-bottom-0">#</th>
-                                <th class="border-bottom-0">Area Name</th>
-                                <th class="border-bottom-0">Added date</th>
-                                <th class="border-bottom-0">Status</th>
+                            <th class="border-bottom-0">#</th>
+                                <th class="border-bottom-0">{{ trans('city.Area_Name') }}</th>
+                                <th class="border-bottom-0">{{ trans('city.created_at') }}</th>
+                                <th class="border-bottom-0">{{ trans('city.status') }}</th>
                                 <th class="border-bottom-0">
                                 @canany([ 'region-update' , 'region-delete' ])
-                                {{ trans('category.Processes') }}
+                                {{ trans('city.Processes') }}
                                 @endcanany
                                 </th>
                             </tr>
@@ -231,9 +225,9 @@ var table = $('#get_cities').DataTable({
             render: function(data, row, type) {
                 var phone;
                 if (data.status == '1') {
-                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.status}">Active</button>`;
+                    return `<button class="btn btn-success-gradient btn-block" id="status" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.Active') }}</button>`;
                 } else {
-                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.status}">Not Active</button>`;
+                    return `<button class="btn btn-danger-gradient btn-block" id="statusoff" data-id="${data.id}" data-viewing_status="${data.status}">{{ trans('category.iActive') }}</button>`;
                 }
             },
         },
@@ -407,9 +401,9 @@ $(document).on('click', '#status', function(e) {
         url: '{{ route("city.status") }}',
         data: data,
         success: function(response) {
-            $('#error_message').html("");
-            $('#error_message').addClass("alert alert-danger");
-            $('#error_message').text(response.message);
+            // $('#error_message').html("");
+            // $('#error_message').addClass("alert alert-danger");
+            // $('#error_message').text(response.message);
             table.ajax.reload();
         }
     });
@@ -439,9 +433,9 @@ $(document).on('click', '#statusoff', function(e) {
         url: '{{ route("city.status") }}',
         data: data,
         success: function(response) {
-            $('#error_message').html("");
-            $('#error_message').addClass("alert alert-danger");
-            $('#error_message').text(response.message);
+            // $('#error_message').html("");
+            // $('#error_message').addClass("alert alert-danger");
+            // $('#error_message').text(response.message);
             table.ajax.reload();
         }
     });
